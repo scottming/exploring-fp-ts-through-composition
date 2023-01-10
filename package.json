@@ -1,0 +1,10 @@
+{
+  "name": "fp-ts-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "fp-ts": "^2.13.1",
+    "fp-ts-contrib": "^0.1.29"
+  }
+}

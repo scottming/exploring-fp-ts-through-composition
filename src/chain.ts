@@ -13,12 +13,12 @@ type ValidateRequest = (request: Request) => E.Either<ValidationError, Request>;
 
 type LowerCaseRequestEmail = (request: Request) => Request;
 
-const validateRequest: ValidateRequest = (request) => {
-  if (request.name === "scott") {
-    return E.left("scott is not allowed");
-  } else {
+const validateRequestEmail: ValidateRequest = (request) => {
+  if (request.email.includes("@")) {
     return E.right(request);
   }
+
+  return E.left("invalid email");
 };
 
 const lowerCaseRequestEmail: LowerCaseRequestEmail = (request) => ({
@@ -38,10 +38,9 @@ const updateDB = (request: Request): E.Either<ValidationError, Request> => {
 const request: Request = { name: "scott", email: "Scott@example.com" };
 const result = pipe(
   request,
-  validateRequest,
+  validateRequestEmail,
   E.map(lowerCaseRequestEmail),
-  E.chain(updateDB),
+  E.chain(updateDB)
 );
 
 result; //?
-// Either<ValidationError, Either<ValidationError, Request>>
